@@ -12,7 +12,7 @@ module.exports = {
     },
     async getSingleUser(req, res) {
         try {
-            const user = await User.findOne({ _id: res.params.userId});
+            const user = await User.findOne({ _id: req.params.userId});
 
             if (!user) {
                 return res.status(404).json({ message: "no user with that id"})
