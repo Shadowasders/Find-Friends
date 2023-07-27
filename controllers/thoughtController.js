@@ -1,5 +1,5 @@
 const Thought = require('../models/Thought');
-
+const Reaction  = require('../models/Thought')
 module.exports ={
     async getThoughts(req, res) {
         try {
@@ -23,6 +23,7 @@ module.exports ={
             res.status(500).json(err);
         }
     },
+
     async createThought(req, res) {
         try {
             const dbThoughtData = await Thought.create(req.body);
@@ -31,6 +32,7 @@ module.exports ={
             res.status(500).json(err)
         }
     },
+
     async deleteThought(req,res) {
         try {
             const thought = await Thought.findOneAndDelete ({ _id: req.params.thoughtId});
@@ -44,7 +46,56 @@ module.exports ={
     },
     async updateThought(req, res) {
         try {
-            const thought
+            const thought = await Thought.findByIdAndUpdate ({ _id: req.params.thoughtId},
+                {
+                    $set: req.body
+                },
+                {
+                    runValidators: true,
+                    new: true,
+                });
+
+                if(!thought) {
+                    return res.status(404).json({ message: "No thought found!"})
+                }
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+
+    async addReaction(req,res) {
+        try {
+            const thought = await Thought.findOneAndUpdate({ _id: req.params.thoughtId},
+                {
+                    $push: {reactions: req.params.thoughtId}
+                },
+                {
+                    new: true,
+                });
+
+                if(!thought) {
+                    return res.status(404).json({message: "Thought not found!"});
+                }
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+
+    async deleteReaction(req,res) {
+        try {
+            const thought = await Thought.findOneAndUpdate ({ _id: req.params.thoughtId},
+                {
+                    $pull: {reactions: req.params.thoughtId}
+                },
+                {
+                    new: true,
+                });
+
+                if(!thought) {
+                    return res.status(404).json({ message: "Thought not found"});
+                }
+        } catch (err) {
+            res.status(500).json(err);
         }
     }
 }
