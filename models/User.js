@@ -1,7 +1,6 @@
-//add models for each section of the hw
 const { Schema, model, Types } = require('mongoose');
 
-const userSchema = new Schema ({
+const userSchema = new Schema({
     username: {
         type: String,
         unique: true,
@@ -13,7 +12,12 @@ const userSchema = new Schema ({
         type: String,
         required: true,
         unique: true,
-        match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, "must match an Email"]
+        validate: {
+            validator: function(email) {
+              const validateEmail =  /^([A-Za-z0-9_\.-]+)@([\dA-Za-z\.-]+)\.([A-Za-z\.]{2,6})$/
+              return validateEmail.test(email)
+            }
+        }
     },
 
     thoughts: [
@@ -29,14 +33,14 @@ const userSchema = new Schema ({
             ref: "User"
         }
     ]
-}, 
-{
-    toJSON: {
-        virtuals: true, 
+},
+    {
+        toJSON: {
+            virtuals: true,
 
-    },
-    id: false,
-}
+        },
+        id: false,
+    }
 );
 userSchema
     .virtual('friendCount')
