@@ -10,6 +10,9 @@
   - [Testing](#testing)
   - [Contact](#contact)
 
+  ## Demo Video
+  [Findfriends-walkthrough.webm](https://github.com/Shadowasders/Find-Friends/assets/99014955/5774cfa6-bf96-462c-94a5-a0f187ae920e)
+
 
   ## Project Description
   Find Friends is an interactive twitter-esqe database. In the database users can sign up with a username & email, add friends, write thoughts, and react to others thoughts! I started this project to get some more experience with MongoDB and mongoose, to futher familarize myself with the back-end
