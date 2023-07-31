@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "start": "node index",
-    "seed": "node utils/seed.js"
+    "start": "node index"
   },
   "dependencies": {
     "express": "^4.18.2",

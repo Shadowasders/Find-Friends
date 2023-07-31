@@ -20,7 +20,6 @@ module.exports =
             }
 
             res.json(user);
-            console.log("user created!")
         } catch (err) {
             res.status(500).json(err);
         }
